@@ -22,4 +22,14 @@ test.describe('Módulo de Autenticación', () => {
     // Validación: que aparezca el mensaje de error
     await expect(login.errorMessage).toContainText('Sorry, this user has been locked out');
   });
+
+  test('Login fallido con usuario y contraseña incorrectos', async ({ page }) => {
+    const login = new LoginPage(page);
+    
+    await login.goto();
+    await login.login('invalid_user', 'invalid_password');
+    
+    // Validación: que aparezca el mensaje de error
+    await expect(login.errorMessage).toContainText('Epic sadface: Username and password do not match any user in this service');
+  });
 });
