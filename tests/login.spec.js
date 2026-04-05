@@ -32,4 +32,14 @@ test.describe('Módulo de Autenticación', () => {
     // Validación: que aparezca el mensaje de error
     await expect(login.errorMessage).toContainText('Epic sadface: Username and password do not match any user in this service');
   });
+
+  test('Login fallido con usuario y contraseña campos vacios', async ({ page }) => {
+    const login = new LoginPage(page);
+    
+    await login.goto();
+    await login.login('', '');
+    
+    // Validación: que aparezca el mensaje de error
+    await expect(login.errorMessage).toContainText('Epic sadface: Username is required');
+  });
 });
